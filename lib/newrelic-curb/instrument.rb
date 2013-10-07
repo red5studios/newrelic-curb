@@ -13,6 +13,11 @@ require 'newrelic_rpm'
     else
       metrics << "External/allOther"
     end
+
+    if self.headers['X-Request-Tracer']
+      metrics << "External/#{host}/Curl::Easy/#{self.headers['X-Request-Tracer'].last}"
+    end
+
     if self.class.respond_to?(:trace_execution_scoped)
       self.class.trace_execution_scoped metrics do
         perform_without_newrelic_trace(*args, &block)

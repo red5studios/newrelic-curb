@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
 	s.name        = 'newrelic-curb'
-	s.version     = '0.0.3'
+	s.version     = '0.0.4'
 	s.license     = "MIT"
 	s.summary     = "Curb instrumentation for New Relic."
 	s.description = "Wraps Curl::Easy.perform to send per-host metrics to New Relic"
