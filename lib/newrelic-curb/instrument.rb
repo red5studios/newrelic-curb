@@ -17,7 +17,7 @@ require 'newrelic_rpm'
     begin
       if self.headers['X-Request-Tracer']
         tracer = self.headers['X-Request-Tracer'].last.gsub('/','_')
-        metrics.unshift("External/#{host}/Curl::Easy>#{tracer}")
+        metrics.unshift("External/#{tracer}/Curl::Easy")
       end
     rescue
       # Ignore failures here
