@@ -14,8 +14,13 @@ require 'newrelic_rpm'
       metrics << "External/allOther"
     end
 
-    if self.headers['X-Request-Tracer']
-      metrics << "External/#{host}/Curl::Easy/#{self.headers['X-Request-Tracer'].last}"
+    begin
+      if self.headers['X-Request-Tracer']
+        tracer = self.headers['X-Request-Tracer'].last.gsub('/','_')
+        metrics.unshift("External/#{host}/Curl::Easy>#{tracer}")
+      end
+    rescue
+      # Ignore failures here
     end
 
     if self.class.respond_to?(:trace_execution_scoped)
